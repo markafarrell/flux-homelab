@@ -1,0 +1,84 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: victoria-metrics
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  resources:
+    - apiVersion: operator.victoriametrics.com/v1beta1
+      kind: VMSingle
+      metadata:
+        name: vm
+        namespace: victoria-metrics
+      spec:
+        retentionPeriod: "100y"
+        removePvcAfterDelete: false
+        storage:
+          storageClassName: rook-ceph-block
+          accessModes:
+            - ReadWriteOnce
+          resources:
+            requests:
+              storage: 50Gi
+        serviceSpec:
+          metadata:
+            annotations:
+              kube-vip.io/loadbalancerIPs: 10.0.2.3
+          spec:
+            type: LoadBalancer
+
+    - apiVersion: operator.victoriametrics.com/v1beta1
+      kind: VMAgent
+      metadata:
+        name: vm
+        namespace: victoria-metrics
+      spec:
+        selectAllByDefault: true
+        remoteWrite:
+          - url: "http://vmsingle-vm.victoria-metrics.svc:8429/api/v1/write"
+
+    # - apiVersion: operator.victoriametrics.com/v1beta1
+    #   kind: VMServiceScrape
+    #   metadata:
+    #     name: rook-ceph-mgr
+    #     namespace: rook-ceph # namespace:cluster
+    #     labels:
+    #       team: rook
+    #   spec:
+    #     namespaceSelector:
+    #       matchNames:
+    #         - rook-ceph
+    #     selector:
+    #       matchLabels:
+    #         app: rook-ceph-mgr
+    #         rook_cluster: rook-ceph # namespace:cluster
+    #     endpoints:
+    #       - port: http-metrics
+    #         path: /metrics
+    #         interval: 10s
+    #         honorLabels: true
+
+    - apiVersion: operator.victoriametrics.com/v1beta1
+      kind: VMServiceScrape
+      metadata:
+        name: fronius-exporter
+        namespace: fronius-exporter
+        labels:
+          team: fronius-exporter
+      spec:
+        namespaceSelector:
+          matchNames:
+            - fronius-exporter
+        selector:
+          matchLabels:
+            app.kubernetes.io/name: fronius-exporter
+            app.kubernetes.io/instance: fronius-exporter
+        endpoints:
+          - port: http
+            path: /metrics
+            interval: 10s
+            honorLabels: true

@@ -1,0 +1,46 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  # flux
+  - ../../base/apps/flux-operator.yml
+  - ../../base/apps/flux-instance.yml
+
+  # metallb
+  - ../../base/apps/metallb.yml
+
+  # ingress-nginx
+  - ../../base/apps/ingress-nginx.yml
+
+  # cert-manager
+  - ../../base/apps/cert-manager.yml
+  - ../../base/apps/cert-manager-cluster-issurer.yml
+
+  # dex
+  - ../../base/apps/dex.yml
+  - ../../base/apps/dex-secret.yml
+
+  # route53-dynamic-dns
+  - ../../base/apps/route53-dynamic-dns.yml
+  - ../../base/apps/route53-dynamic-dns-secret.yml
+
+  # # rook-ceph
+  # - ../../base/apps/rook-ceph-operator.yml
+  # - ../../base/apps/rook-ceph-cluster.yml
+  # - ../../base/apps/rook-ceph.yml
+
+  # # victoria-metrics
+  # - ../../base/apps/victoria-metrics-operator.yml
+  # - ../../base/apps/victoria-metrics.yml
+
+  # # fronius-exporter
+  # - ../../base/apps/fronius-exporter.yml
+
+  # # grafana
+  # - ../../base/apps/grafana-operator.yml
+  # - ../../base/apps/grafana.yml
+  # - ../../base/apps/grafana-secret.yml
+
+  # # pihole
+  # - ../../base/apps/pihole.yml

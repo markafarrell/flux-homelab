@@ -1,0 +1,48 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: fronius-exporter
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  resources:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: fronius-exporter
+
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: HelmRepository
+      metadata:
+        name: fronius-exporter
+        namespace: fronius-exporter
+      spec:
+        interval: 10m0s
+        url: https://ccremer.github.io/charts
+
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: fronius-exporter
+        namespace: fronius-exporter
+      spec:
+        interval: 1h
+        releaseName: fronius-exporter
+        chart:
+          spec:
+            chart: fronius-exporter
+            version: 0.*.*
+            sourceRef:
+              kind: HelmRepository
+              name: fronius-exporter
+        values:
+          image:
+            registry: ghcr.io
+            repository: ccremer/fronius-exporter
+            tag: v0.12.0
+            pullPolicy: IfNotPresent
+          exporter:
+            symoUrl: "http://10.0.3.1"
