@@ -30,17 +30,18 @@ resources:
   - ../../base/apps/rook-ceph-cluster.yml
   - ../../base/apps/rook-ceph.yml
 
-  # # victoria-metrics
-  # - ../../base/apps/victoria-metrics-operator.yml
-  # - ../../base/apps/victoria-metrics.yml
+  # victoria-metrics
+  - ../../base/apps/victoria-metrics-operator.yml
+  - ../../base/apps/victoria-metrics.yml
 
-  # # fronius-exporter
-  # - ../../base/apps/fronius-exporter.yml
+  # fronius-exporter
+  - ../../base/apps/fronius-exporter.yml
 
-  # # grafana
-  # - ../../base/apps/grafana-operator.yml
-  # - ../../base/apps/grafana.yml
-  # - ../../base/apps/grafana-secret.yml
+  # grafana
+  - ../../base/apps/grafana-namespace.yml
+  - ../../base/apps/grafana-operator.yml
+  - ../../base/apps/grafana.yml
+  - ../../base/apps/grafana-secret.yml
 
   # # pihole
   # - ../../base/apps/pihole.yml

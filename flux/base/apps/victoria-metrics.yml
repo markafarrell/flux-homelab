@@ -27,7 +27,7 @@ spec:
         serviceSpec:
           metadata:
             annotations:
-              kube-vip.io/loadbalancerIPs: 10.0.2.3
+              metallb.universe.tf/loadBalancerIPs: 10.0.2.3
           spec:
             type: LoadBalancer
 

@@ -9,11 +9,6 @@ metadata:
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
   resources:
-    - apiVersion: v1
-      kind: Namespace
-      metadata:
-        name: grafana
-
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: HelmRepository
       metadata:
