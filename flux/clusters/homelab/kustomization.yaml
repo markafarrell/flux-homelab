@@ -25,10 +25,10 @@ resources:
   - ../../base/apps/route53-dynamic-dns.yml
   - ../../base/apps/route53-dynamic-dns-secret.yml
 
-  # # rook-ceph
-  # - ../../base/apps/rook-ceph-operator.yml
-  # - ../../base/apps/rook-ceph-cluster.yml
-  # - ../../base/apps/rook-ceph.yml
+  # rook-ceph
+  - ../../base/apps/rook-ceph-operator.yml
+  - ../../base/apps/rook-ceph-cluster.yml
+  - ../../base/apps/rook-ceph.yml
 
   # # victoria-metrics
   # - ../../base/apps/victoria-metrics-operator.yml
