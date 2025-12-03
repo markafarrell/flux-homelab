@@ -34,6 +34,9 @@ resources:
   - ../../base/apps/victoria-metrics-operator.yml
   - ../../base/apps/victoria-metrics.yml
 
+  # node-exporter
+  - ../../base/apps/node-exporter.yml
+
   # fronius-exporter
   - ../../base/apps/fronius-exporter.yml
 

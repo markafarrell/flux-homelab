@@ -1,0 +1,60 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: node-exporter
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  resources:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: node-exporter
+        labels:
+          pod-security.kubernetes.io/enforce: privileged
+          pod-security.kubernetes.io/audit: privileged
+          pod-security.kubernetes.io/warn: privileged
+
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: node-exporter
+        namespace: node-exporter
+      spec:
+        interval: 10m
+        url: oci://ghcr.io/prometheus-community/charts/prometheus-node-exporter
+        ref:
+          semver: ">=4.49.2"
+
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: node-exporter
+        namespace: node-exporter
+      spec:
+        interval: 1h
+        releaseName: node-exporter
+        chartRef:
+          kind: OCIRepository
+          name: node-exporter
+
+    - apiVersion: operator.victoriametrics.com/v1beta1
+      kind: VMPodScrape
+      metadata:
+        name: node-exporter
+        namespace: node-exporter
+      spec:
+        selector:
+          matchLabels:
+            app.kubernetes.io/name: prometheus-node-exporter
+        podMetricsEndpoints:
+          - port: metrics
+            path: /metrics
+            relabelConfigs:
+              - sourceLabels:
+                  - "__meta_kubernetes_pod_node_name"
+                action: replace
+                targetLabel: instance
