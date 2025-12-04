@@ -1,3 +1,4 @@
+---
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
@@ -41,6 +42,18 @@ spec:
           kind: OCIRepository
           name: node-exporter
 
+---
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: node-exporter-monitoring
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  resources:
     - apiVersion: operator.victoriametrics.com/v1beta1
       kind: VMPodScrape
       metadata:

@@ -82,6 +82,7 @@ spec:
       # For now only ext3, ext4, xfs resize support provided, like in Kubernetes itself.
       allowVolumeExpansion: true
 
+---
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
