@@ -1,0 +1,17 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "kubernetes": {
+    "fileMatch": ["\\.yaml$", "\\.yml$"]
+  },
+  "flux": {
+    "fileMatch": ["\\.yaml$", "\\.yml$"]
+  },
+  "helm-values": {
+    "fileMatch": ["\\.yaml$", "\\.yml$"]
+  },
+  "ignorePaths": [
+    "**/*.-secret.yml$"
+  ],
+  "packageRules": []
+}
