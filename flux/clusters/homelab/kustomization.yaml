@@ -46,5 +46,8 @@ resources:
   - ../../base/apps/grafana.yml
   - ../../base/apps/grafana-secret.yml
 
+  # tuppr
+  - ../../base/apps/tuppr.yml
+
   # # pihole
   # - ../../base/apps/pihole.yml

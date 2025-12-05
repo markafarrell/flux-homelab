@@ -1,0 +1,38 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: tuppr
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcile: "enabled"
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  resources:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: system-upgrade
+
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: OCIRepository
+      metadata:
+        name: tuppr
+        namespace: system-upgrade
+      spec:
+        interval: 10m
+        url: oci://ghcr.io/home-operations/charts/tuppr
+        ref:
+          semver: ">=0.0.43"
+
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: tuppr
+        namespace: system-upgrade
+      spec:
+        interval: 1h
+        releaseName: tuppr
+        chartRef:
+          kind: OCIRepository
+          name: tuppr
