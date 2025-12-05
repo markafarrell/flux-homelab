@@ -48,6 +48,7 @@ resources:
 
   # tuppr
   - ../../base/apps/tuppr.yml
+  - ../../base/apps/tuppr-config.yml
 
   # # pihole
   # - ../../base/apps/pihole.yml
