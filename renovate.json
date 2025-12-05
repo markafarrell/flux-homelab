@@ -1,8 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended"],
+  "extends": [
+    "config:recommended"
+  ],
   "kubernetes": {
-    "fileMatch": ["\\.yaml$", "\\.yml$"]
+    "managerFilePatterns": [
+      "/\\.yaml$/",
+      "/\\.yml$/"
+    ]
   },
   "ignorePaths": [
     "**/*.-secret.yml$"
@@ -11,12 +16,11 @@
     {
       "customType": "regex",
       "description": "Process annotated dependencies",
-      "managerFilePatterns": ["/\\.yaml$/", "/\\.yml$/"],
+      "managerFilePatterns": [
+        "/\\.yaml$/",
+        "/\\.yml$/"
+      ],
       "matchStrings": [
-        // # renovate: datasource=github-releases depName=foo/bar
-        // foobar_version: v1.0.0
-        // # renovate: datasource=docker depName=ghcr.io/foo/bar
-        // FOOBAR_VERSION=v1.0.0
         "datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\n.+(:\\s|=)(&\\S+\\s)?(?<currentValue>\\S+)"
       ],
       "datasourceTemplate": "{{#if datasource}}{{{datasource}}}{{else}}github-releases{{/if}}"
