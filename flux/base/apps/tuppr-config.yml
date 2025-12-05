@@ -2,7 +2,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
-  name: tuppr
+  name: tuppr-config
   namespace: flux-system
   annotations:
     fluxcd.controlplane.io/reconcile: "enabled"
