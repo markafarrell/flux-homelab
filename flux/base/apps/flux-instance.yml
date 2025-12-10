@@ -21,7 +21,8 @@ spec:
           fluxcd.controlplane.io/reconcileTimeout: "5m"
       spec:
         distribution:
-          version: "2.x"
+          # renovate: datasource=docker depName=ghcr.io/ghcr.io/fluxcd/flux-cli
+          version: 2.7.5
           registry: "ghcr.io/fluxcd"
         components:
           - source-controller

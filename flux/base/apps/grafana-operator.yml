@@ -29,7 +29,8 @@ spec:
         chart:
           spec:
             chart: grafana-operator
-            version: 5.*.*
+            # renovate: datasource=helm depName=grafana-operator registryUrl=https://grafana.github.io/helm-charts
+            version: 5.20.0
             sourceRef:
               kind: HelmRepository
               name: grafana-operator
