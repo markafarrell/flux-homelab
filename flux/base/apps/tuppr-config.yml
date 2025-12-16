@@ -5,7 +5,6 @@ metadata:
   name: tuppr-config
   namespace: flux-system
   annotations:
-    fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:

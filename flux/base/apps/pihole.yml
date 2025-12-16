@@ -4,7 +4,6 @@ metadata:
   name: pihole
   namespace: flux-system
   annotations:
-    fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
@@ -43,14 +42,14 @@ spec:
             type: LoadBalancer
             externalTrafficPolicy: Local
             annotations:
-              kube-vip.io/loadbalancerIPs: 10.0.2.254
+              metallb.universe.tf/loadBalancerIPs: 10.0.2.254
 
           serviceDns:
             mixedService: true
             type: LoadBalancer
             externalTrafficPolicy: Local
             annotations:
-              kube-vip.io/loadbalancerIPs: 10.0.2.254
+              metallb.universe.tf/loadBalancerIPs: 10.0.2.254
 
           extraEnvVars:
             TZ: Australia/Hobart
