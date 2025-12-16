@@ -39,6 +39,8 @@ spec:
           kind: OCIRepository
           name: kube-state-metrics
         values:
+          annotations:
+            reloader.stakater.com/auto: "true"
           collectors: [ ]
           extraArgs:
             - --custom-resource-state-only=true
