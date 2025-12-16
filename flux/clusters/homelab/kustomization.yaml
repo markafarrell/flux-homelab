@@ -53,5 +53,8 @@ resources:
   # kube-state-metrics
   - ../../base/apps/kube-state-metrics.yml
 
+  # reloader
+  - ../../base/apps/reloader.yml
+
   # # pihole
   # - ../../base/apps/pihole.yml

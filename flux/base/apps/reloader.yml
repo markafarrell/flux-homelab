@@ -1,7 +1,7 @@
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
 metadata:
-  name: rook-ceph-operator
+  name: reloader
   namespace: flux-system
   annotations:
     fluxcd.controlplane.io/reconcileEvery: "30m"
@@ -11,34 +11,33 @@ spec:
     - apiVersion: v1
       kind: Namespace
       metadata:
-        name: rook-ceph
-        labels:
-          pod-security.kubernetes.io/enforce: privileged
-          pod-security.kubernetes.io/audit: privileged
-          pod-security.kubernetes.io/warn: privileged
+        name: reloader
 
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: HelmRepository
       metadata:
-        name: rook-ceph
-        namespace: rook-ceph
+        name: reloader
+        namespace: reloader
       spec:
         interval: 10m0s
-        url: https://charts.rook.io/release
+        url: https://stakater.github.io/stakater-charts
 
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
       metadata:
-        name: rook-ceph
-        namespace: rook-ceph
+        name: reloader
+        namespace: reloader
       spec:
         interval: 1h
-        releaseName: rook-ceph
+        releaseName: reloader
         chart:
           spec:
-            chart: rook-ceph
-            # renovate: datasource=helm depName=rook-ceph registryUrl=https://charts.rook.io/release
-            version: v1.18.8
+            chart: reloader
+            # renovate: datasource=helm depName=reloader registryUrl=https://stakater.github.io/stakater-charts
+            version: 2.2.7
             sourceRef:
               kind: HelmRepository
-              name: rook-ceph
+              name: reloader
+        values:
+          reloader:
+            reloadStrategy: annotations

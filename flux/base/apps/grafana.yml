@@ -4,7 +4,6 @@ metadata:
   name: grafana
   namespace: flux-system
   annotations:
-    fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
@@ -21829,9 +21828,240 @@ spec:
             "editable": true,
             "fiscalYearStartMonth": 0,
             "graphTooltip": 0,
-            "id": 5,
+            "id": 7,
             "links": [],
             "panels": [
+              {
+                "datasource": {
+                  "type": "victoriametrics-metrics-datasource",
+                  "uid": "b91bb4d8-d63d-4d2e-a67d-54e4405d7377"
+                },
+                "fieldConfig": {
+                  "defaults": {
+                    "color": {
+                      "mode": "thresholds"
+                    },
+                    "custom": {
+                      "align": "auto",
+                      "cellOptions": {
+                        "type": "auto"
+                      },
+                      "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": 0
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
+                    }
+                  },
+                  "overrides": []
+                },
+                "gridPos": {
+                  "h": 4,
+                  "w": 24,
+                  "x": 0,
+                  "y": 0
+                },
+                "id": 2,
+                "options": {
+                  "cellHeight": "sm",
+                  "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                      "sum"
+                    ],
+                    "show": false
+                  },
+                  "showHeader": true
+                },
+                "pluginVersion": "12.1.0",
+                "targets": [
+                  {
+                    "editorMode": "code",
+                    "exemplar": false,
+                    "expr": "tuppr_resource_info{customresource_kind=\"TalosUpgrade\"}",
+                    "format": "table",
+                    "instant": true,
+                    "legendFormat": "__auto",
+                    "range": false,
+                    "refId": "A"
+                  }
+                ],
+                "title": "Talos",
+                "transformations": [
+                  {
+                    "id": "organize",
+                    "options": {
+                      "excludeByName": {
+                        "Time": true,
+                        "Value": true,
+                        "__name__": true,
+                        "container": true,
+                        "customresource_group": true,
+                        "customresource_kind": true,
+                        "customresource_version": true,
+                        "endpoint": true,
+                        "instance": true,
+                        "job": true,
+                        "namespace": true,
+                        "pod": true,
+                        "prometheus": true,
+                        "service": true
+                      },
+                      "includeByName": {},
+                      "indexByName": {
+                        "Time": 0,
+                        "Value": 16,
+                        "__name__": 1,
+                        "container": 2,
+                        "customresource_group": 3,
+                        "customresource_kind": 4,
+                        "customresource_version": 5,
+                        "endpoint": 6,
+                        "instance": 7,
+                        "job": 8,
+                        "message": 17,
+                        "name": 9,
+                        "namespace": 10,
+                        "phase": 15,
+                        "pod": 11,
+                        "prometheus": 12,
+                        "service": 13,
+                        "version": 14
+                      },
+                      "renameByName": {
+                        "tuppr_resource_info{container=\"kube-state-metrics\",customresource_group=\"tuppr.home-operations.com\",customresource_kind=\"TalosUpgrade\",customresource_version=\"v1alpha1\",endpoint=\"http\",instance=\"10.244.1.81:8080\",job=\"kube-state-metrics\",message=\"Successfully upgraded 0 nodes\",name=\"cluster\",namespace=\"kube-state-metrics\",phase=\"Completed\",pod=\"kube-state-metrics-6dcc46bfb7-7grj9\",prometheus=\"victoria-metrics/vm\",service=\"kube-state-metrics\",version=\"v1.11.5\"}": ""
+                      }
+                    }
+                  }
+                ],
+                "type": "table"
+              },
+              {
+                "datasource": {
+                  "type": "victoriametrics-metrics-datasource",
+                  "uid": "b91bb4d8-d63d-4d2e-a67d-54e4405d7377"
+                },
+                "fieldConfig": {
+                  "defaults": {
+                    "color": {
+                      "mode": "thresholds"
+                    },
+                    "custom": {
+                      "align": "auto",
+                      "cellOptions": {
+                        "type": "auto"
+                      },
+                      "inspect": false
+                    },
+                    "mappings": [],
+                    "thresholds": {
+                      "mode": "absolute",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": 0
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
+                    }
+                  },
+                  "overrides": []
+                },
+                "gridPos": {
+                  "h": 4,
+                  "w": 24,
+                  "x": 0,
+                  "y": 4
+                },
+                "id": 3,
+                "options": {
+                  "cellHeight": "sm",
+                  "footer": {
+                    "countRows": false,
+                    "fields": "",
+                    "reducer": [
+                      "sum"
+                    ],
+                    "show": false
+                  },
+                  "showHeader": true
+                },
+                "pluginVersion": "12.1.0",
+                "targets": [
+                  {
+                    "editorMode": "code",
+                    "exemplar": false,
+                    "expr": "tuppr_resource_info{customresource_kind=\"KubernetesUpgrade\"}",
+                    "format": "table",
+                    "instant": true,
+                    "legendFormat": "__auto",
+                    "range": false,
+                    "refId": "A"
+                  }
+                ],
+                "title": "Kubernetes",
+                "transformations": [
+                  {
+                    "id": "organize",
+                    "options": {
+                      "excludeByName": {
+                        "Time": true,
+                        "Value": true,
+                        "__name__": true,
+                        "container": true,
+                        "customresource_group": true,
+                        "customresource_kind": true,
+                        "customresource_version": true,
+                        "endpoint": true,
+                        "instance": true,
+                        "job": true,
+                        "namespace": true,
+                        "pod": true,
+                        "prometheus": true,
+                        "service": true
+                      },
+                      "includeByName": {},
+                      "indexByName": {
+                        "Time": 0,
+                        "Value": 18,
+                        "__name__": 1,
+                        "container": 2,
+                        "currentVersion": 10,
+                        "customresource_group": 3,
+                        "customresource_kind": 4,
+                        "customresource_version": 5,
+                        "endpoint": 6,
+                        "instance": 7,
+                        "job": 11,
+                        "message": 13,
+                        "name": 8,
+                        "namespace": 14,
+                        "phase": 12,
+                        "pod": 15,
+                        "prometheus": 16,
+                        "service": 17,
+                        "targetVersion": 9
+                      },
+                      "renameByName": {}
+                    }
+                  }
+                ],
+                "type": "table"
+              },
               {
                 "datasource": {
                   "type": "victoriametrics-metrics-datasource",
@@ -21894,7 +22124,7 @@ spec:
                   "h": 21,
                   "w": 24,
                   "x": 0,
-                  "y": 0
+                  "y": 8
                 },
                 "id": 1,
                 "options": {
@@ -22005,5 +22235,5 @@ spec:
             "timezone": "browser",
             "title": "Flux Resources",
             "uid": "c1510ac9-892f-425e-8fa0-d0a9606efe7e",
-            "version": 1
+            "version": 2
           }

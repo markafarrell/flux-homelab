@@ -5,7 +5,6 @@ metadata:
   name: rook-ceph
   namespace: flux-system
   annotations:
-    fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
@@ -89,7 +88,6 @@ metadata:
   name: rook-ceph-monitoring
   namespace: flux-system
   annotations:
-    fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:

@@ -5,7 +5,6 @@ metadata:
   name: kube-state-metrics
   namespace: flux-system
   annotations:
-    fluxcd.controlplane.io/reconcile: "enabled"
     fluxcd.controlplane.io/reconcileEvery: "30m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
@@ -39,6 +38,8 @@ spec:
           kind: OCIRepository
           name: kube-state-metrics
         values:
+          annotations:
+            reloader.stakater.com/auto: "true"
           collectors: [ ]
           extraArgs:
             - --custom-resource-state-only=true
@@ -66,6 +67,12 @@ spec:
                   - imagepolicies
                   - imageupdateautomations
                   - resourcesets
+                verbs: [ "list", "watch" ]
+              - apiGroups:
+                  - tuppr.home-operations.com
+                resources:
+                  - kubernetesupgrades
+                  - talosupgrades
                 verbs: [ "list", "watch" ]
           customResourceState:
             enabled: true
@@ -315,6 +322,7 @@ spec:
                           suspended: [ spec, suspend ]
                           source_name: [ spec, sourceRef, name ]
 
+                  # flux-operator resources
                   - groupVersionKind:
                       group: fluxcd.controlplane.io
                       version: v1
@@ -332,6 +340,45 @@ spec:
                           exported_namespace: [ metadata, namespace ]
                           ready: [ status, conditions, "[type=Ready]", status ]
                           reconcile: [ metadata, annotations, "fluxcd.controlplane.io/reconcile" ]
+
+                  # tuppr resources
+                  - groupVersionKind:
+                      group: tuppr.home-operations.com
+                      version: v1alpha1
+                      kind: KubernetesUpgrade
+                    metricNamePrefix: tuppr
+                    metrics:
+                      - name: "resource_info"
+                        help: "The current state of a Tuppr KubernetesUpgrade resource."
+                        each:
+                          type: Info
+                          info:
+                            labelsFromPath:
+                              name: [ metadata, name ]
+                        labelsFromPath:
+                          exported_namespace: [ metadata, namespace ]
+                          phase: [ status, phase ]
+                          currentVersion: [ status, currentVersion ]
+                          targetVersion: [ status, targetVersion ]
+                          message: [ status, message ]
+                  - groupVersionKind:
+                      group: tuppr.home-operations.com
+                      version: v1alpha1
+                      kind: TalosUpgrade
+                    metricNamePrefix: tuppr
+                    metrics:
+                      - name: "resource_info"
+                        help: "The current state of a Tuppr TalosUpgrade resource."
+                        each:
+                          type: Info
+                          info:
+                            labelsFromPath:
+                              name: [ metadata, name ]
+                        labelsFromPath:
+                          exported_namespace: [ metadata, namespace ]
+                          phase: [ status, phase ]
+                          version: [ spec, talos, version ]
+                          message: [ status, message ]
 
     - apiVersion: operator.victoriametrics.com/v1beta1
       kind: VMServiceScrape
