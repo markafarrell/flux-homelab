@@ -50,5 +50,8 @@ resources:
   - ../../base/apps/tuppr.yml
   - ../../base/apps/tuppr-config.yml
 
+  # kube-state-metrics
+  - ../../base/apps/kube-state-metrics.yml
+
   # # pihole
   # - ../../base/apps/pihole.yml
