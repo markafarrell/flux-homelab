@@ -75,6 +75,12 @@ spec:
                   - http://localhost:18000
                 name: kube-apiserver
 
+              - id: flux-web
+                name: flux-web
+                secretEnv: FLUX_WEB_CLIENT_SECRET
+                redirectURIs:
+                  - "https://flux.homelab.evilcyborgdrone.com/oauth2/callback"
+
           envVars:
             - name: GITHUB_CLIENT_ID
               valueFrom:
@@ -85,6 +91,16 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: github-oauth-credentials
+                  key: client-secret
+            - name: FLUX_WEB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: flux-web-client
+                  key: client-id
+            - name: FLUX_WEB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: flux-web-client
                   key: client-secret
 
           ingress:
