@@ -31,3 +31,35 @@ spec:
         chartRef:
           kind: OCIRepository
           name: flux-operator
+        values:
+          web:
+            config:
+              baseURL: "https://flux.homelab.evilcyborgdrone.com"
+              authentication:
+                type: OAuth2
+                oauth2:
+                  provider: OIDC
+                  issuerURL: "https://dex.homelab.evilcyborgdrone.com"
+            ingress:
+              enabled: true
+              className: nginx
+              annotations:
+                cert-manager.io/cluster-issuer: letsencrypt-prod
+              hosts:
+                - host: flux.homelab.evilcyborgdrone.com
+                  paths:
+                    - path: /
+                      pathType: Prefix
+              tls:
+                - secretName: flux-operator-tls
+                  hosts:
+                    - flux.homelab.evilcyborgdrone.com
+        valuesFrom:
+          - kind: Secret
+            name: flux-web-client
+            valuesKey: client-id
+            targetPath: web.config.authentication.oauth2.clientID
+          - kind: Secret
+            name: flux-web-client
+            valuesKey: client-secret
+            targetPath: web.config.authentication.oauth2.clientSecret

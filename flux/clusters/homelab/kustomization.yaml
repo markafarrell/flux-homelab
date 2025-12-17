@@ -6,6 +6,7 @@ resources:
   # flux
   - ../../base/apps/flux-operator.yml
   - ../../base/apps/flux-instance.yml
+  - ../../base/apps/flux-web-secret.yml
 
   # metallb
   - ../../base/apps/metallb.yml
@@ -20,6 +21,7 @@ resources:
   # dex
   - ../../base/apps/dex.yml
   - ../../base/apps/dex-secret.yml
+  - ../../base/apps/dex-flux-web-secret.yml
 
   # route53-dynamic-dns
   - ../../base/apps/route53-dynamic-dns.yml
