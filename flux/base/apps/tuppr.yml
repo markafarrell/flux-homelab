@@ -24,7 +24,7 @@ spec:
         url: oci://ghcr.io/home-operations/charts/tuppr
         ref:
           # renovate: datasource=docker depName=ghcr.io/home-operations/charts/tuppr
-          semver: 0.0.50
+          semver: 0.0.51
 
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
