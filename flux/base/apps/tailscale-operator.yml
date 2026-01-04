@@ -1,0 +1,50 @@
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: tailscale-operator
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  resources:
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: HelmRepository
+      metadata:
+        name: tailscale-operator
+        namespace: tailscale
+      spec:
+        interval: 10m0s
+        url: https://pkgs.tailscale.com/helmcharts
+
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: tailscale-operator
+        namespace: tailscale
+      spec:
+        interval: 1h
+        releaseName: tailscale-operator
+        chart:
+          spec:
+            chart: tailscale-operator
+            # renovate: datasource=helm depName=tailscale-operator registryUrl=https://pkgs.tailscale.com/helmcharts
+            version: 1.92.4
+            sourceRef:
+              kind: HelmRepository
+              name: tailscale-operator
+        values:
+          oauthSecretVolume:
+            secret:
+              secretName: tailscale-operator-oauth
+
+    - apiVersion: tailscale.com/v1alpha1
+      kind: Connector
+      metadata:
+        name: lan
+      spec:
+        replicas: 1
+        hostnamePrefix: lan
+        subnetRouter:
+          advertiseRoutes:
+            - "10.0.0.0/20"
