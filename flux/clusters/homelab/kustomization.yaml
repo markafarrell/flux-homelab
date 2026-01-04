@@ -61,5 +61,10 @@ resources:
   # reloader
   - ../../base/apps/reloader.yml
 
+  # tailscale
+  - ../../base/apps/tailscale-namespace.yml
+  - ../../base/apps/tailscale-secret.yml
+  - ../../base/apps/tailscale-operator.yml
+
   # # pihole
   # - ../../base/apps/pihole.yml
