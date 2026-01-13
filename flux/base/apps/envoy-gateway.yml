@@ -24,7 +24,7 @@ spec:
         url: oci://docker.io/envoyproxy/gateway-helm
         ref:
           # renovate: datasource=docker depName=docker.io/envoyproxy/gateway-helm
-          semver: v1.6.1
+          semver: 1.6.2
 
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
