@@ -24,7 +24,7 @@ spec:
         url: oci://ghcr.io/prometheus-community/charts/kube-state-metrics
         ref:
           # renovate: datasource=docker depName=ghcr.io/prometheus-community/charts/kube-state-metrics
-          semver: 7.0.1
+          semver: 7.1.0
 
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
