@@ -18,7 +18,7 @@ spec:
         url: oci://ghcr.io/controlplaneio-fluxcd/charts/flux-operator
         ref:
           # renovate: datasource=docker depName=ghcr.io/controlplaneio-fluxcd/charts/flux-operator
-          semver: 0.38.1
+          semver: 0.39.0
 
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
