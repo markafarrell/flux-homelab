@@ -34,7 +34,7 @@ spec:
           spec:
             chart: victoria-metrics-operator
             # renovate: datasource=helm depName=victoria-metrics-operator registryUrl=https://victoriametrics.github.io/helm-charts/
-            version: 0.57.1
+            version: 0.58.1
             sourceRef:
               kind: HelmRepository
               name: victoria-metrics-operator
