@@ -38,7 +38,7 @@ spec:
           spec:
             chart: rook-ceph
             # renovate: datasource=helm depName=rook-ceph registryUrl=https://charts.rook.io/release
-            version: v1.19.0
+            version: v1.19.1
             sourceRef:
               kind: HelmRepository
               name: rook-ceph
