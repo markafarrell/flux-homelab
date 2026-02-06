@@ -68,3 +68,6 @@ resources:
 
   # # pihole
   # - ../../base/apps/pihole.yml
+
+  # descheduler
+  - ../../base/apps/descheduler.yml
