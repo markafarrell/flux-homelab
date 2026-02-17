@@ -14,6 +14,9 @@ spec:
         name: rook-ceph
         namespace: rook-ceph # namespace:cluster
       spec:
+        cephConfig:
+          mon:
+            mon_data_avail_warn: "20"
         cephVersion:
           # The container image used to launch the Ceph daemon pods (mon, mgr, osd, mds, rgw).
           # v18 is Reef, v19 is Squid
