@@ -40,7 +40,7 @@ spec:
       spec:
         kubernetes:
           # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-          version: v1.35.0
+          version: v1.34.0
 
         healthChecks:
           # Check all nodes are ready
