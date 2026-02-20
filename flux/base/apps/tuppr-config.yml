@@ -8,51 +8,51 @@ metadata:
     fluxcd.controlplane.io/reconcileEvery: "30m"
     fluxcd.controlplane.io/reconcileTimeout: "5m"
 spec:
-  resources:
-    - apiVersion: tuppr.home-operations.com/v1alpha1
-      kind: TalosUpgrade
-      metadata:
-        name: cluster
-      spec:
-        talos:
-         # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-          version: v1.12.4
+  resources: []
+    # - apiVersion: tuppr.home-operations.com/v1alpha1
+    #   kind: TalosUpgrade
+    #   metadata:
+    #     name: cluster
+    #   spec:
+    #     talos:
+    #      # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+    #       version: v1.12.4
 
-        healthChecks:
-          # Check all nodes are ready
-          - apiVersion: v1
-            kind: Node
-            expr: |
-              status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
-            timeout: 10m
+    #     healthChecks:
+    #       # Check all nodes are ready
+    #       - apiVersion: v1
+    #         kind: Node
+    #         expr: |
+    #           status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
+    #         timeout: 10m
 
-          # Check custom resources
-          - apiVersion: ceph.rook.io/v1
-            kind: CephCluster
-            name: rook-ceph
-            namespace: rook-ceph
-            expr: status.ceph.health in ["HEALTH_OK"]
+    #       # Check custom resources
+    #       - apiVersion: ceph.rook.io/v1
+    #         kind: CephCluster
+    #         name: rook-ceph
+    #         namespace: rook-ceph
+    #         expr: status.ceph.health in ["HEALTH_OK"]
 
-    - apiVersion: tuppr.home-operations.com/v1alpha1
-      kind: KubernetesUpgrade
-      metadata:
-        name: kubernetes
-      spec:
-        kubernetes:
-          # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
-          version: v1.35.0
+    # - apiVersion: tuppr.home-operations.com/v1alpha1
+    #   kind: KubernetesUpgrade
+    #   metadata:
+    #     name: kubernetes
+    #   spec:
+    #     kubernetes:
+    #       # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+    #       version: v1.35.0
 
-        healthChecks:
-          # Check all nodes are ready
-          - apiVersion: v1
-            kind: Node
-            expr: |
-              status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
-            timeout: 10m
+    #     healthChecks:
+    #       # Check all nodes are ready
+    #       - apiVersion: v1
+    #         kind: Node
+    #         expr: |
+    #           status.conditions.filter(c, c.type == "Ready").all(c, c.status == "True")
+    #         timeout: 10m
 
-          # Check custom resources
-          - apiVersion: ceph.rook.io/v1
-            kind: CephCluster
-            name: rook-ceph
-            namespace: rook-ceph
-            expr: status.ceph.health in ["HEALTH_OK"]
+    #       # Check custom resources
+    #       - apiVersion: ceph.rook.io/v1
+    #         kind: CephCluster
+    #         name: rook-ceph
+    #         namespace: rook-ceph
+    #         expr: status.ceph.health in ["HEALTH_OK"]
