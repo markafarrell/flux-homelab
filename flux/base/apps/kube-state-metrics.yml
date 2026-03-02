@@ -15,16 +15,14 @@ spec:
         name: kube-state-metrics
 
     - apiVersion: source.toolkit.fluxcd.io/v1
-      kind: OCIRepository
+      kind: HelmRepository
       metadata:
         name: kube-state-metrics
         namespace: kube-state-metrics
       spec:
-        interval: 10m
-        url: oci://ghcr.io/prometheus-community/charts/kube-state-metrics
-        ref:
-          # renovate: datasource=docker depName=ghcr.io/prometheus-community/charts/kube-state-metrics
-          semver: 7.2.0
+        type: "oci"
+        interval: 5m0s
+        url: oci://ghcr.io/prometheus-community/charts
 
     - apiVersion: helm.toolkit.fluxcd.io/v2
       kind: HelmRelease
@@ -34,9 +32,14 @@ spec:
       spec:
         interval: 1h
         releaseName: kube-state-metrics
-        chartRef:
-          kind: OCIRepository
-          name: kube-state-metrics
+        chart:
+          spec:
+            chart: kube-state-metrics
+            # renovate: datasource=helm depName=kube-state-metrics registryUrl=https://prometheus-community.github.io/helm-charts
+            version: 7.2.0
+            sourceRef:
+              kind: HelmRepository
+              name: kube-state-metrics
         values:
           annotations:
             reloader.stakater.com/auto: "true"
