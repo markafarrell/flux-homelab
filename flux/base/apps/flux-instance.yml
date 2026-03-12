@@ -20,7 +20,7 @@ spec:
       spec:
         distribution:
           # renovate: datasource=docker depName=ghcr.io/ghcr.io/fluxcd/flux-cli
-          version: 2.8.1
+          version: 2.8.2
           registry: "ghcr.io/fluxcd"
         components:
           - source-controller
