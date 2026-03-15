@@ -133,7 +133,6 @@ spec:
           - name: envoy-gateway
             namespace: envoy-gateway
             kind: Gateway
-            sectionName: immich-homelab-evilcyborgdrone-com-https
         hostnames:
           - "immich.homelab.evilcyborgdrone.com"
         rules:
