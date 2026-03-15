@@ -71,3 +71,6 @@ resources:
 
   # descheduler
   - ../../base/apps/descheduler.yml
+
+  # cloudnative-pg
+  - ../../base/apps/cloudnative-pg.yml
