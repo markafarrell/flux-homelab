@@ -74,3 +74,6 @@ resources:
 
   # cloudnative-pg
   - ../../base/apps/cloudnative-pg.yml
+
+  # immich
+  - ../../base/apps/immich.yml

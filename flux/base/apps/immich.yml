@@ -1,0 +1,149 @@
+---
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: immich
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  resources:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: immich
+
+    - apiVersion: postgresql.cnpg.io/v1
+      kind: Cluster
+      metadata:
+        name: immich-database
+        namespace: immich
+      spec:
+        instances: 1
+
+        storage:
+          storageClass: rook-ceph-block
+          size: 1Gi
+
+        imageName: ghcr.io/tensorchord/cloudnative-vectorchord:16.9-0.4.3
+
+        postgresql:
+          shared_preload_libraries:
+            - "vchord.so"
+
+        bootstrap:
+          initdb:
+            # TODO: Use managed extensions (pg 18)
+            postInitApplicationSQL:
+              # Commands based on: https://immich.app/docs/administration/postgres-standalone/#without-superuser-permission
+              - CREATE EXTENSION vchord CASCADE;
+              - CREATE EXTENSION earthdistance CASCADE;
+
+    - apiVersion: v1
+      kind: PersistentVolumeClaim
+      metadata:
+        name: immich-library-pvc
+        namespace: immich
+      spec:
+        storageClassName: rook-ceph-block
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 10Gi
+
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: HelmRepository
+      metadata:
+        name: immich
+        namespace: immich
+      spec:
+        type: "oci"
+        interval: 5m0s
+        url: oci://ghcr.io/immich-app/immich-charts
+
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: immich
+        namespace: immich
+      spec:
+        interval: 1h
+        releaseName: immich
+        chart:
+          spec:
+            chart: immich
+            # renovate: datasource=docker depName=ghcr.io/immich-app/immich-charts/immich
+            version: 0.10.3
+            sourceRef:
+              kind: HelmRepository
+              name: immich
+        values:
+          valkey:
+            enabled: true
+
+          immich:
+            persistence:
+              library:
+                existingClaim: immich-library-pvc
+
+          controllers:
+            main:
+              containers:
+                main:
+                  image:
+                    # renovate: datasource=docker depName=ghcr.io/immich-app/immich-server
+                    tag: v2.5.6
+
+          server:
+            controllers:
+              main:
+                containers:
+                  main:
+                    env:
+                      DB_HOSTNAME:
+                        valueFrom:
+                          secretKeyRef:
+                            name: immich-database-app
+                            key: host
+                      DB_USERNAME:
+                        valueFrom:
+                          secretKeyRef:
+                            name: immich-database-app
+                            key: user
+                      DB_PASSWORD:
+                        valueFrom:
+                          secretKeyRef:
+                            name: immich-database-app
+                            key: password
+                      DB_DATABASE_NAME:
+                        valueFrom:
+                          secretKeyRef:
+                            name: immich-database-app
+                            key: dbname
+
+    - apiVersion: gateway.networking.k8s.io/v1
+      kind: HTTPRoute
+      metadata:
+        name: immich
+        namespace: immich
+      spec:
+        parentRefs:
+          - name: envoy-gateway
+            namespace: envoy-gateway
+            kind: Gateway
+            sectionName: immich-homelab-evilcyborgdrone-com-https
+        hostnames:
+          - "immich.homelab.evilcyborgdrone.com"
+        rules:
+          - backendRefs:
+              - group: ""
+                kind: Service
+                name: immich-server
+                port: 2283
+                weight: 1
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /
