@@ -132,3 +132,16 @@ spec:
               mode: Terminate
               certificateRefs:
                 - name: grafana-homelab-evilcyborgdrone-com-tls
+
+          # IMMICH LISTENER
+          - name: immich-homelab-evilcyborgdrone-com-https
+            hostname: "immich.homelab.evilcyborgdrone.com"
+            port: 443
+            protocol: HTTPS
+            allowedRoutes:
+              namespaces:
+                from: All
+            tls:
+              mode: Terminate
+              certificateRefs:
+                - name: immich-homelab-evilcyborgdrone-com-tls
