@@ -127,6 +127,10 @@ spec:
                           secretKeyRef:
                             name: immich-database-app
                             key: dbname
+
+          machine-learning:
+            enabled: false
+
         valuesFrom:
           - kind: Secret
             name: immich-oidc-credentials
