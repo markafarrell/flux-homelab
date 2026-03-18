@@ -95,7 +95,7 @@ spec:
 
           controllers:
             main:
-              replicas: 2
+              # replicas: 2
               containers:
                 main:
                   image:
