@@ -81,6 +81,14 @@ spec:
                 redirectURIs:
                   - "https://flux.homelab.evilcyborgdrone.com/oauth2/callback"
 
+              - id: immich
+                name: immich
+                secretEnv: IMMICH_CLIENT_SECRET
+                redirectURIs:
+                  - "https://immich.homelab.evilcyborgdrone.com/auth/login"
+                  - "https://immich.homelab.evilcyborgdrone.com/user-settings"
+                  - app.immich:///oauth-callback
+
           envVars:
             - name: GITHUB_CLIENT_ID
               valueFrom:
@@ -101,6 +109,16 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: flux-web-client
+                  key: client-secret
+            - name: IMMICH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: immich-client
+                  key: client-id
+            - name: IMMICH_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: immich-client
                   key: client-secret
 
           ingress:

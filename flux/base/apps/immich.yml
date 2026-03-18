@@ -84,6 +84,11 @@ spec:
             enabled: true
 
           immich:
+            configuration:
+              oauth:
+                enabled: true
+                issuerUrl: https://dex.homelab.evilcyborgdrone.com/.well-known/openid-configuration
+
             persistence:
               library:
                 existingClaim: immich-library-pvc
@@ -122,6 +127,9 @@ spec:
                           secretKeyRef:
                             name: immich-database-app
                             key: dbname
+        valuesFrom:
+          - kind: Secret
+            name: immich-oidc-credentials
 
     - apiVersion: gateway.networking.k8s.io/v1
       kind: HTTPRoute
