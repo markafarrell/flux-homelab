@@ -46,12 +46,12 @@ spec:
         name: immich-library-pvc
         namespace: immich
       spec:
-        storageClassName: rook-ceph-block
+        storageClassName: rook-cephfs
         accessModes:
-          - ReadWriteOnce
+          - ReadWriteMany
         resources:
           requests:
-            storage: 10Gi
+            storage: 50Gi
 
     - apiVersion: source.toolkit.fluxcd.io/v1
       kind: HelmRepository
