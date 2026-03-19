@@ -25,6 +25,7 @@ resources:
   - ../../base/apps/dex.yml
   - ../../base/apps/dex-secret.yml
   - ../../base/apps/dex-flux-web-secret.yml
+  - ../../base/apps/dex-immich-secret.yml
 
   # route53-dynamic-dns
   - ../../base/apps/route53-dynamic-dns.yml
@@ -74,3 +75,10 @@ resources:
 
   # cloudnative-pg
   - ../../base/apps/cloudnative-pg.yml
+
+  # immich
+  - ../../base/apps/immich.yml
+  - ../../base/apps/immich-secret.yml
+
+  # metrics-server
+  - ../../base/apps/metrics-server.yml
