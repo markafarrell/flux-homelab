@@ -74,12 +74,14 @@ spec:
                   - http://localhost:8000
                   - http://localhost:18000
                 name: kube-apiserver
+                skipApprovalScreen: true
 
               - id: flux-web
                 name: flux-web
                 secretEnv: FLUX_WEB_CLIENT_SECRET
                 redirectURIs:
                   - "https://flux.homelab.evilcyborgdrone.com/oauth2/callback"
+                skipApprovalScreen: true
 
               - id: immich
                 name: immich
@@ -88,6 +90,7 @@ spec:
                   - "https://immich.homelab.evilcyborgdrone.com/auth/login"
                   - "https://immich.homelab.evilcyborgdrone.com/user-settings"
                   - app.immich:///oauth-callback
+                skipApprovalScreen: true
 
           envVars:
             - name: GITHUB_CLIENT_ID
