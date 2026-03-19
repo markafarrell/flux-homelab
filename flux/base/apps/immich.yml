@@ -95,7 +95,15 @@ spec:
 
           controllers:
             main:
-              replicas: 2
+              # podAntiAffinity:
+              #   preferredDuringSchedulingIgnoredDuringExecution:
+              #     - weight: 100
+              #       podAffinityTerm:
+              #         labelSelector:
+              #           matchLabels:
+              #             app.kubernetes.io/instance: "immich"
+              #             app.kubernetes.io/component: "server"
+              #         topologyKey: "kubernetes.io/hostname"
               containers:
                 main:
                   image:
@@ -105,8 +113,26 @@ spec:
           server:
             controllers:
               main:
+                replicas: 2
+                pod:
+                  affinity:
+                    podAntiAffinity:
+                      requiredDuringSchedulingIgnoredDuringExecution:
+                        - labelSelector:
+                            matchLabels:
+                              app.kubernetes.io/instance: "immich"
+                              app.kubernetes.io/controller: "main"
+                              app.kubernetes.io/name: "server"
+                          topologyKey: "kubernetes.io/hostname"
                 containers:
                   main:
+                    resources:
+                      limits:
+                        cpu: 1000m
+                        memory: 1Gi
+                      requests:
+                        cpu: 100m
+                        memory: 512Mi
                     env:
                       DB_HOSTNAME:
                         valueFrom:
