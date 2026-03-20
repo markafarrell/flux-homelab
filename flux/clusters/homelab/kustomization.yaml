@@ -82,3 +82,6 @@ resources:
 
   # metrics-server
   - ../../base/apps/metrics-server.yml
+
+  # spegel
+  - ../../base/apps/spegel.yml

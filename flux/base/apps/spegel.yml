@@ -1,0 +1,42 @@
+---
+apiVersion: fluxcd.controlplane.io/v1
+kind: ResourceSet
+metadata:
+  name: spegel
+  namespace: flux-system
+  annotations:
+    fluxcd.controlplane.io/reconcileEvery: "30m"
+    fluxcd.controlplane.io/reconcileTimeout: "5m"
+spec:
+  resources:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: spegel
+
+    - apiVersion: source.toolkit.fluxcd.io/v1
+      kind: HelmRepository
+      metadata:
+        name: spegel
+        namespace: spegel
+      spec:
+        type: "oci"
+        interval: 5m0s
+        url: oci://ghcr.io/spegel-org/helm-charts
+
+    - apiVersion: helm.toolkit.fluxcd.io/v2
+      kind: HelmRelease
+      metadata:
+        name: spegel
+        namespace: spegel
+      spec:
+        interval: 1m
+        chart:
+          spec:
+            chart: spegel
+            # renovate: datasource=docker depName=oci://ghcr.io/spegel-org/helm-charts/spegel
+            version: 0.6.0
+            interval: 5m
+            sourceRef:
+              kind: HelmRepository
+              name: spegel
