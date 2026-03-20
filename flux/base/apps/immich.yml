@@ -88,6 +88,8 @@ spec:
               oauth:
                 enabled: true
                 issuerUrl: https://dex.homelab.evilcyborgdrone.com/.well-known/openid-configuration
+              machineLearning:
+                enabled: false
 
             persistence:
               library:
