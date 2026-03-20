@@ -147,6 +147,8 @@ spec:
                           secretKeyRef:
                             name: immich-database-app
                             key: dbname
+                      NODE_OPTIONS:
+                        value: --max-old-space-size=900
 
           machine-learning:
             enabled: false
