@@ -45,6 +45,8 @@ spec:
       metadata:
         name: immich-library-pvc
         namespace: immich
+        annotations:
+          k8up.io/backup: "true"
       spec:
         storageClassName: rook-cephfs
         accessModes:
@@ -178,3 +180,28 @@ spec:
               - path:
                   type: PathPrefix
                   value: /
+
+    - apiVersion: k8up.io/v1
+      kind: Schedule
+      metadata:
+        name: daily-immich-backup
+        namespace: immich
+      spec:
+        backend:
+          s3:
+            endpoint: https://5d02038486406f8a28cfedb9414e7c85.r2.cloudflarestorage.com
+            bucket: immich-backup
+            accessKeyIDSecretRef:
+              name: immich-r2-client
+              key: access-key-id
+            secretAccessKeySecretRef:
+              name: immich-r2-client
+              key: secret-access-key
+          repoPasswordSecretRef:
+            name: restic-repo-password
+            key: password
+        backup:
+          schedule: "0 0 * * *" # Daily at midnight
+          failedJobsHistoryLimit: 2
+          successfulJobsHistoryLimit: 2
+
