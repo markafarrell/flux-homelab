@@ -76,9 +76,15 @@ resources:
   # cloudnative-pg
   - ../../base/apps/cloudnative-pg.yml
 
+  # k8up
+  - ../../base/apps/k8up.yml
+
   # immich
   - ../../base/apps/immich.yml
   - ../../base/apps/immich-secret.yml
+  - ../../base/apps/immich-r2-secret.yml
+  - ../../base/apps/immich-restic-secret.yml
 
   # metrics-server
   - ../../base/apps/metrics-server.yml
+
