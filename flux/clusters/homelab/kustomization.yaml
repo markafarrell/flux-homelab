@@ -37,6 +37,7 @@ resources:
   - ../../base/apps/rook-ceph.yml
 
   # victoria-metrics
+  - ../../base/apps/prometheus-operator-crds.yml
   - ../../base/apps/victoria-metrics-operator.yml
   - ../../base/apps/victoria-metrics.yml
 
