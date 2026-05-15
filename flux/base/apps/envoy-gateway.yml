@@ -1,3 +1,5 @@
+
+
 ---
 apiVersion: fluxcd.controlplane.io/v1
 kind: ResourceSet
@@ -37,7 +39,47 @@ spec:
         chartRef:
           kind: OCIRepository
           name: envoy-gateway
+        upgrade:
+          crds: CreateReplace
         values: {}
+
+# ---
+# apiVersion: fluxcd.controlplane.io/v1
+# kind: ResourceSet
+# metadata:
+#   name: envoy-gateway-crds
+#   namespace: flux-system
+#   annotations:
+#     fluxcd.controlplane.io/reconcileEvery: "30m"
+#     fluxcd.controlplane.io/reconcileTimeout: "5m"
+# spec:
+#   resources:
+#     - apiVersion: source.toolkit.fluxcd.io/v1
+#       kind: OCIRepository
+#       metadata:
+#         name: envoy-gateway-crds
+#         namespace: envoy-gateway
+#       spec:
+#         interval: 10m
+#         url: oci://docker.io/envoyproxy/gateway-crds-helm
+#         ref:
+#           # renovate: datasource=docker depName=docker.io/envoyproxy/gateway-crds-helm
+#           semver: 1.8.0
+
+#     - apiVersion: helm.toolkit.fluxcd.io/v2
+#       kind: HelmRelease
+#       metadata:
+#         name: envoy-gateway-crds
+#         namespace: envoy-gateway
+#       spec:
+#         interval: 1h
+#         releaseName: envoy-gateway-crds
+#         chartRef:
+#           kind: OCIRepository
+#           name: envoy-gateway-crds
+#         upgrade:
+#           crds: CreateReplace
+#         values: {}
 
 ---
 apiVersion: fluxcd.controlplane.io/v1
