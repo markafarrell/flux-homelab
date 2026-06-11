@@ -89,3 +89,5 @@ resources:
   # metrics-server
   - ../../base/apps/metrics-server.yml
 
+  # etcd monitoring
+  - ../../base/apps/etcd-monitoring.yml
