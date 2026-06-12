@@ -31,7 +31,7 @@ spec:
             kind: CephCluster
             name: rook-ceph
             namespace: rook-ceph
-            expr: status.ceph.health in ["HEALTH_OK"]
+            expr: status.ceph.health in ["HEALTH_OK", "HEALTH_WARN"]
 
     - apiVersion: tuppr.home-operations.com/v1alpha1
       kind: KubernetesUpgrade
@@ -55,4 +55,4 @@ spec:
             kind: CephCluster
             name: rook-ceph
             namespace: rook-ceph
-            expr: status.ceph.health in ["HEALTH_OK"]
+            expr: status.ceph.health in ["HEALTH_OK", "HEALTH_WARN"]
