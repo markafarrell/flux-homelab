@@ -36,7 +36,7 @@ spec:
           spec:
             chart: kube-state-metrics
             # renovate: datasource=helm depName=kube-state-metrics registryUrl=https://prometheus-community.github.io/helm-charts
-            version: 7.4.0
+            version: 7.4.1
             sourceRef:
               kind: HelmRepository
               name: kube-state-metrics
