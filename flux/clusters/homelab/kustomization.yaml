@@ -12,7 +12,7 @@ resources:
   - ../../base/apps/metallb.yml
 
   # ingress-nginx
-  - ../../base/apps/ingress-nginx.yml
+  # - ../../base/apps/ingress-nginx.yml
 
   # envoy-gateway
   - ../../base/apps/envoy-gateway.yml

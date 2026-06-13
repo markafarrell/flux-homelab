@@ -125,7 +125,7 @@ spec:
                   key: client-secret
 
           ingress:
-            enabled: true
+            enabled: false
             hosts:
               - host: dex.homelab.evilcyborgdrone.com
                 paths:
