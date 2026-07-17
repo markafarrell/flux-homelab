@@ -35,7 +35,7 @@ spec:
           spec:
             chart: k8up
             # renovate: datasource=helm depName=k8up registryUrl=https://k8up-io.github.io/k8up
-            version: 4.9.0
+            version: 4.10.0
             sourceRef:
               kind: HelmRepository
               name: k8up-io
