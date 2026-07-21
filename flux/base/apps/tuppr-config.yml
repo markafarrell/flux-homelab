@@ -16,7 +16,7 @@ spec:
       spec:
         talos:
          # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
-          version: v1.13.5
+          version: v1.13.7
 
         healthChecks:
           # Check all nodes are ready
