@@ -22,6 +22,8 @@ spec:
       spec:
         instances: 3
 
+        enableSuperuserAccess: true
+
         storage:
           storageClass: rook-ceph-block
           size: 1Gi
