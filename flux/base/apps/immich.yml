@@ -20,7 +20,7 @@ spec:
         name: immich-database
         namespace: immich
       spec:
-        instances: 1
+        instances: 3
 
         storage:
           storageClass: rook-ceph-block
