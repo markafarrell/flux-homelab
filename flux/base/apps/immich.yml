@@ -134,22 +134,22 @@ spec:
                       DB_HOSTNAME:
                         valueFrom:
                           secretKeyRef:
-                            name: immich-database-app
+                            name: immich-database-superuser
                             key: host
                       DB_USERNAME:
                         valueFrom:
                           secretKeyRef:
-                            name: immich-database-app
+                            name: immich-database-superuser
                             key: user
                       DB_PASSWORD:
                         valueFrom:
                           secretKeyRef:
-                            name: immich-database-app
+                            name: immich-database-superuser
                             key: password
                       DB_DATABASE_NAME:
                         valueFrom:
                           secretKeyRef:
-                            name: immich-database-app
+                            name: immich-database-superuser
                             key: dbname
 
           machine-learning:
