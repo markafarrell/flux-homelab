@@ -42,6 +42,7 @@ spec:
             sourceRef:
               kind: HelmRepository
               name: rook-ceph
+        values: {}
 
 ---
 apiVersion: fluxcd.controlplane.io/v1
@@ -104,4 +105,134 @@ spec:
               enabled: false
               name: rook-ceph.nvmeof.csi.ceph.com # csi-provisioner-name
 
+    - apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: cephfs-ctrlplugin-sa
+        namespace: rook-ceph
 
+    - apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: cephfs-nodeplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: rbd-ctrlplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: rbd-nodeplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: cephfs-ctrlplugin-rb
+        namespace: rook-ceph
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: rook-ceph-cephfs-csi-ceph-com-ctrlplugin-r
+      subjects:
+      - kind: ServiceAccount
+        name: cephfs-ctrlplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: cephfs-nodeplugin-rb
+        namespace: rook-ceph
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: rook-ceph-cephfs-csi-ceph-com-nodeplugin-r
+      subjects:
+      - kind: ServiceAccount
+        name: cephfs-nodeplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: rbd-ctrlplugin-rb
+        namespace: rook-ceph
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: rook-ceph-rbd-csi-ceph-com-ctrlplugin-r
+      subjects:
+      - kind: ServiceAccount
+        name: rbd-ctrlplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: RoleBinding
+      metadata:
+        name: rbd-nodeplugin-rb
+        namespace: rook-ceph
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: Role
+        name: rook-ceph-rbd-csi-ceph-com-nodeplugin-r
+      subjects:
+      - kind: ServiceAccount
+        name: rbd-nodeplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: cephfs-ctrlplugin-crb
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: rook-ceph-cephfs-csi-ceph-com-ctrlplugin-cr
+      subjects:
+      - kind: ServiceAccount
+        name: cephfs-ctrlplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: cephfs-nodeplugin-crb
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: rook-ceph-cephfs-csi-ceph-com-nodeplugin-cr
+      subjects:
+      - kind: ServiceAccount
+        name: cephfs-nodeplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: rbd-ctrlplugin-crb
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: rook-ceph-rbd-csi-ceph-com-ctrlplugin-cr
+      subjects:
+      - kind: ServiceAccount
+        name: rbd-ctrlplugin-sa
+        namespace: rook-ceph
+
+    - apiVersion: rbac.authorization.k8s.io/v1
+      kind: ClusterRoleBinding
+      metadata:
+        name: rbd-nodeplugin-crb
+      roleRef:
+        apiGroup: rbac.authorization.k8s.io
+        kind: ClusterRole
+        name: rook-ceph-rbd-csi-ceph-com-nodeplugin-cr
+      subjects:
+      - kind: ServiceAccount
+        name: rbd-nodeplugin-sa
+        namespace: rook-ceph
