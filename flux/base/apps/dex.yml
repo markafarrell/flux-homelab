@@ -41,6 +41,7 @@ spec:
               kind: HelmRepository
               name: dex
         values:
+          replicaCount: 3
           config:
             # Set it to a valid URL
             issuer: https://dex.homelab.evilcyborgdrone.com
