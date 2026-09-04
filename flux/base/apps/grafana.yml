@@ -120,7 +120,7 @@ spec:
             dashboards: "grafana"
         allowCrossNamespaceImport: true
         datasource:
-          name: Prometheus
+          name: prometheus
           type: prometheus
           access: proxy
           url: http://vmsingle-vm.victoria-metrics.svc.cluster.local:8428
