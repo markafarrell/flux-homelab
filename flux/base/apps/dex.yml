@@ -42,13 +42,23 @@ spec:
               name: dex
         values:
           replicaCount: 3
+
+          rbac:
+            create: true
+
+          serviceAccount:
+            create: true
+            name: dex
+
           config:
             # Set it to a valid URL
             issuer: https://dex.homelab.evilcyborgdrone.com
 
             # See https://dexidp.io/docs/storage/ for more options
             storage:
-              type: memory
+              type: kubernetes
+              config:
+                inCluster: true
 
             # Enable at least one connector
             # See https://dexidp.io/docs/connectors/ for more options
