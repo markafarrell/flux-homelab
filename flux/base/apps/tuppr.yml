@@ -41,3 +41,11 @@ spec:
           crds: CreateReplace
         upgrade:
           crds: CreateReplace
+        values:
+          monitoring:
+            dashboards:
+              enabled: true
+              grafanaOperator:
+                enabled: true
+            serviceMonitor:
+              enabled: true
