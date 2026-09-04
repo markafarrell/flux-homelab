@@ -37,3 +37,7 @@ spec:
         chartRef:
           kind: OCIRepository
           name: tuppr
+        install:
+          crds: CreateReplace
+        upgrade:
+          crds: CreateReplace
