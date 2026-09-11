@@ -76,7 +76,7 @@ spec:
           spec:
             chart: ceph-csi-drivers
             # renovate: datasource=helm depName=ceph-csi-drivers registryUrl=https://ceph.github.io/ceph-csi-operator/
-            version: v1.0.4
+            version: 1.0.5
             sourceRef:
               kind: HelmRepository
               name: ceph-csi-operator
